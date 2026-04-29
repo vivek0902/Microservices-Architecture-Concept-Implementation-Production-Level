@@ -6,7 +6,7 @@ import { Credential } from './entity/credential.entity';
 export const AppDataSource = new DataSource({
   type: 'postgres',
   url: config.DATABASE_URL,
-  synchronize: true,
+  synchronize: process.env.NODE_ENV === 'development',
   logging: false,
   entities: [User, Credential],
 });
