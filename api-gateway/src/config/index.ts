@@ -12,14 +12,20 @@ interface Config {
   TRANSACTION_SERVICE_URL: string;
 }
 
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value || !value.trim()) {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
 export const config: Config = {
   SERVICE_NAME: require('../../package.json').name,
   PORT: Number(process.env.PORT) || 3000,
   DEFAULT_TIMEOUT: Number(process.env.DEFAULT_TIMEOUT || '30000'),
-  AUTH_JWT_SECRET:
-    process.env.AUTH_JWT_SECRET || 'your-default-auth-secret-key',
-  GATEWAY_JWT_SECRET:
-    process.env.GATEWAY_JWT_SECRET || 'your-default-gateway-secret-key',
+  AUTH_JWT_SECRET: requireEnv('AUTH_JWT_SECRET'),
+  GATEWAY_JWT_SECRET: requireEnv('GATEWAY_JWT_SECRET'),
   GATEWAY_JWT_EXPIRES_IN: process.env.GATEWAY_JWT_EXPIRES_IN || '1m',
   LOG_LEVEL: process.env.LOG_LEVEL || 'info',
   REDIS_URL: process.env.REDIS_URL || 'redis://localhost:6379',
