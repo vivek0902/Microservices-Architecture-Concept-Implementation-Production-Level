@@ -21,9 +21,9 @@ app.use(corsMiddleware);
 
 app.use(reqLogger);
 app.use(express.json());
-app.use(verifyToken);
 
 app.use('/', indexRouter);
+app.use(verifyToken);
 app.use('/api/v1/auth', authRouter);
 
 app.use(errorHandler);
