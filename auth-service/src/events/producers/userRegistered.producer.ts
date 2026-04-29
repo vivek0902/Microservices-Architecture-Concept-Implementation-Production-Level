@@ -1,8 +1,6 @@
 import logger from '../../config/logger';
 import { USER_TOPICS } from '../../constants';
-
-const { producer } = require('../kafka');
-
+import { producer } from '../kafka';
 export const publishUserRegistered = async (data: any) => {
   const topic = USER_TOPICS.USER_REGISTERED;
 
